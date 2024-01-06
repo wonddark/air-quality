@@ -40,7 +40,7 @@ export default async function CityAirQuality({
         </span>
       </h2>
       <div className="border-2 rounded-lg">
-        <div className="grid grid-cols-[80%_10%_10%] bg-slate-500 text-slate-100 font-semibold p-3 rounded-t-lg text-xl">
+        <div className="grid grid-cols-[60%_15%_15%] bg-sky-500 text-slate-100 font-semibold p-2 rounded-t-lg text-xl">
           <div className="text-left">Parameter</div>
           <div className="text-right">Concentration</div>
           <div className="text-right">AQI</div>
