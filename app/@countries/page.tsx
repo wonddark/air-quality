@@ -1,7 +1,7 @@
 import CountryItem from "@app/app/@countries/CountryItem";
 
 export default async function CountriesList() {
-  const { data } = await fetch("http://localhost:3000/countries").then((res) =>
+  const { data } = await fetch(`${process.env.BASE_PATH}/countries`).then((res) =>
     res.json()
   );
   return (
