@@ -1,19 +1,11 @@
 import SearchCtrl from "@app/app/SearchCtrl";
 
-export async function generateStaticParams() {
-  const res = await fetch(`https://countriesnow.space/api/v0.1/countries`);
-  const data = await res.json();
-  const cities = data.data
-    .map((item: { cities: string[] }) => item.cities)
-    .flat();
-  return cities.map((city: string) => ({
-    city: city.toLowerCase(),
-  }));
-}
-
 export function generateMetadata({ params: { city } }: Readonly<Props>) {
   return {
-    title: `AQI for for ${city}`,
+    title: `AQI for for ${city
+      .split("%20")
+      .map((item) => item[0].toUpperCase() + item.substring(1))
+      .join(" ")}`,
   };
 }
 
@@ -38,11 +30,14 @@ export default async function CityAirQuality({
 
   return (
     <>
-      <div className="w-10/12 mx-auto h-10">
+      <div className="w-10/12 mx-auto h-10 mb-7">
         <SearchCtrl />
       </div>
       <h2 className="text-3xl mb-3">
-        Air Quality for <span className="uppercase font-semibold">{city}</span>
+        Air Quality for{" "}
+        <span className="uppercase font-semibold">
+          {city.replace(/(%20)+/gm, " ")}
+        </span>
       </h2>
       <div className="border-2 rounded-lg">
         <div className="grid grid-cols-[80%_10%_10%] bg-slate-500 text-slate-100 font-semibold p-3 rounded-t-lg text-xl">
