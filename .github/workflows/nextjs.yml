@@ -88,11 +88,13 @@ jobs:
 
   # Deployment job
   deploy:
+    steps:
     # https://github.com/JamesIves/github-pages-deploy-action
-    uses: JamesIves/github-pages-deploy-action@4.5.0
-    with:
-      branch: gh-pages
-      folder: out
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+           branch: master
+           folder: out
 #    environment:
 #      name: github-pages
 #      url: ${{ steps.deployment.outputs.page_url }}
