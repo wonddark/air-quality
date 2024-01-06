@@ -1,9 +1,30 @@
 import SearchCtrl from "@app/app/SearchCtrl";
 
+export async function generateStaticParams() {
+  const res = await fetch(`https://countriesnow.space/api/v0.1/countries`);
+  const data = await res.json();
+  const cities = data.data
+    .map((item: { cities: string[] }) => item.cities)
+    .flat();
+  return cities.map((city: string) => ({
+    city: city.toLowerCase(),
+  }));
+}
+
 export function generateMetadata({ params: { city } }: Readonly<Props>) {
   return {
     title: `AQI for for ${city}`,
   };
+}
+
+async function getAQIForCity(city: string) {
+  const res = await fetch(
+    `https://api.api-ninjas.com/v1/airquality?city=${city}`,
+    {
+      headers: { "x-api-key": "GxI7yOw5B4k4XHaSGvQA8Q==8dO15cx0MjSAkxAd" },
+    }
+  );
+  return await res.json();
 }
 
 type Props = {
@@ -13,8 +34,8 @@ type Props = {
 export default async function CityAirQuality({
   params: { city },
 }: Readonly<Props>) {
-  const res = await fetch(`http://localhost:3000/air-quality?city=${city}`);
-  const data = await res.json();
+  const data = await getAQIForCity(city);
+
   return (
     <>
       <div className="w-10/12 mx-auto h-10">
