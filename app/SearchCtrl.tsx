@@ -21,7 +21,7 @@ const SearchCtrl = () => {
       />
       <button
         type="submit"
-        className="px-3 rounded-e-lg bg-slate-400 text-slate-900 hover:brightness-110"
+        className="px-3 rounded-e-lg bg-sky-400 text-white hover:brightness-110"
       >
         Buscar
       </button>
