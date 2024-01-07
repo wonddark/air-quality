@@ -11,7 +11,7 @@ export function generateMetadata({ params: { city } }: Readonly<Props>) {
 
 async function getAQIForCity(city: string) {
   const res = await fetch(`${process.env.API_AQI_BASE_URL}?city=${city}`, {
-    headers: { "x-api-key": process.env.API_KEY },
+    headers: { "x-api-key": `${process.env.API_KEY}` },
   });
   return await res.json();
 }
