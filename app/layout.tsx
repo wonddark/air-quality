@@ -27,7 +27,7 @@ export default function RootLayout({ children, countries }: Readonly<Props>) {
             </Link>
           </div>
         </header>
-        <div className="max-w-6xl mx-auto mt-5 px-3 grid grid-cols-[30%_70%]">
+        <div className="max-w-6xl mx-auto mt-5 px-3 grid grid-cols-1 gap-2 lg:grid-cols-[30%_70%] lg:gap-0">
           <div>{countries}</div>
           <div>{children}</div>
         </div>
