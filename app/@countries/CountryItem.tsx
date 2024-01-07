@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function CountryItem({
-  item,
-}: Readonly<{ item: { country: string; cities: string[] } }>) {
+type Props = Readonly<{
+  item: { country: string; cities: string[] };
+  onClick?: () => void;
+}>;
+
+export default function CountryItem({ item, onClick }: Props) {
   const [showCities, setShowCities] = useState(false);
 
   const generateCities = () => {
@@ -24,10 +27,11 @@ export default function CountryItem({
       </button>
       <ul className={citiesListClass}>
         {item.cities.map((token) => (
-          <li key={token} className="py-0.5 px-1 city-item">
+          <li key={token} className="py-0.5 px-1 city-item hover:bg-sky-50">
             <Link
               href={`/city/${token.toLowerCase()}`}
               className="hover:brightness-110 hover:underline"
+              onClick={onClick}
             >
               {token}
             </Link>
