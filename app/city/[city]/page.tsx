@@ -16,6 +16,22 @@ async function getAQIForCity(city: string) {
   return await res.json();
 }
 
+function aqiColor(value: number) {
+  if (value < 51) {
+    return "bg-green-700 text-gray-50";
+  } else if (value < 101) {
+    return "bg-yellow-500 text-gray-800";
+  } else if (value < 151) {
+    return "bg-orange-600 text-gray-50";
+  } else if (value < 201) {
+    return "bg-red-500 text-gray-50";
+  } else if (value < 301) {
+    return "bg-fuchsia-500 text-gray-800";
+  } else {
+    return "bg-yellow-950 text-gray-50";
+  }
+}
+
 type Props = {
   params: { city: string };
 };
@@ -37,7 +53,7 @@ export default async function CityAirQuality({
         </span>
       </h2>
       <div className="border-2 rounded-lg">
-        <div className="grid grid-cols-[60%_15%_15%] bg-sky-500 text-slate-100 font-semibold p-2 rounded-t-lg text-xl">
+        <div className="grid grid-cols-[45%_40%_15%] bg-sky-500 text-slate-100 font-semibold p-2 rounded-t-lg text-xl">
           <div className="text-left">Parameter</div>
           <div className="text-right">Concentration</div>
           <div className="text-right">AQI</div>
@@ -46,7 +62,7 @@ export default async function CityAirQuality({
           (item) => (
             <div
               key={item[0]}
-              className="grid grid-cols-[75%_15%_10%] px-3 py-1 odd:bg-slate-100 last:font-semibold last:text-lg"
+              className="grid grid-cols-[45%_40%_15%] px-3 py-1 odd:bg-slate-100 last:font-semibold last:text-lg"
             >
               <div>{item[0]}</div>
               {item[0] !== "overall_aqi" ? (
@@ -55,7 +71,11 @@ export default async function CityAirQuality({
                   <div className="text-right">{item[1].aqi}</div>
                 </>
               ) : (
-                <div className="col-span-2 text-right">
+                <div
+                  className={`col-span-2 text-right ${aqiColor(
+                    item[1] as unknown as number
+                  )}`}
+                >
                   {item[1] as unknown as number}
                 </div>
               )}
