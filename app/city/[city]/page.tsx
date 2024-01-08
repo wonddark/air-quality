@@ -62,7 +62,14 @@ export default async function CityAirQuality({
           (item) => (
             <div
               key={item[0]}
-              className="grid grid-cols-[45%_40%_15%] px-3 py-1 odd:bg-slate-100 last:font-semibold last:text-lg"
+              className={
+                "grid grid-cols-[45%_40%_15%] px-3 py-1 odd:bg-slate-100" +
+                ` last:font-semibold last:text-lg${
+                  item[0] !== "overall_aqi"
+                    ? ""
+                    : ` ${aqiColor(item[1] as unknown as number)}`
+                }`
+              }
             >
               <div>{item[0]}</div>
               {item[0] !== "overall_aqi" ? (
@@ -71,11 +78,7 @@ export default async function CityAirQuality({
                   <div className="text-right">{item[1].aqi}</div>
                 </>
               ) : (
-                <div
-                  className={`col-span-2 text-right ${aqiColor(
-                    item[1] as unknown as number
-                  )}`}
-                >
+                <div className="col-span-2 text-right">
                   {item[1] as unknown as number}
                 </div>
               )}
